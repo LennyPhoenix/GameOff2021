@@ -12,6 +12,7 @@ extents = Vector2( 32, 32 )
 
 [node name="Block" type="StaticBody2D" parent="."]
 position = Vector2( 114.209, -67.0151 )
+collision_mask = 0
 
 [node name="Sprite" type="Sprite" parent="Block"]
 texture = ExtResource( 2 )
