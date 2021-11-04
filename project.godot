@@ -11,7 +11,7 @@ config_version=4
 [application]
 
 config/name="Game Off 2021"
-run/main_scene="res://Application.tscn"
+run/main_scene="res://Prototyping.tscn"
 config/icon="res://icon.png"
 
 [display]
