@@ -3,6 +3,7 @@ extends Area2D
 
 export var speed := 1200.0
 export var max_distance := 3000.0
+export var speed_variation := 500.0
 
 onready var raycast := $RayCast2D
 
@@ -31,15 +32,10 @@ func _physics_process(delta: float) -> void:
 		queue_free()
 
 
-func fire(
-		delta: float,
-		new_transform: Transform2D,
-		random_rotation: float = 0.0,
-		random_speed: float = 0.0
-) -> void:
+func fire(delta: float, new_transform: Transform2D) -> void:
 	transform = new_transform
-	global_rotation_degrees += rand_range(-random_rotation/2, random_rotation/2)
-	speed += rand_range(-random_speed/2, random_speed/2)
+
+	speed += rand_range(-speed_variation / 2, speed_variation / 2)
 
 	var distance = speed * delta
 	raycast.cast_to = Vector2(distance, 0)

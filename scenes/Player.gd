@@ -10,6 +10,7 @@ var input_vector := Vector2.ZERO
 var velocity := Vector2.ZERO
 
 onready var rotate_group: Node2D = $Rotate
+onready var gun: Gun = $Rotate/Gun
 
 
 func _process(_delta: float) -> void:
@@ -26,6 +27,7 @@ func _process(_delta: float) -> void:
 
 	# Check for Aiming Input
 	sneaking = Input.is_action_pressed("sneak")
+	gun.aiming = sneaking
 
 
 func _physics_process(delta: float) -> void:
