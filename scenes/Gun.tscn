@@ -7,8 +7,6 @@
 [node name="Gun" type="Node2D"]
 script = ExtResource( 2 )
 
-[node name="Tween" type="Tween" parent="."]
-
 [node name="Muzzle" type="Position2D" parent="."]
 position = Vector2( 8, 0 )
 
