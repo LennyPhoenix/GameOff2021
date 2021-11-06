@@ -27,7 +27,6 @@ func _process(_delta: float) -> void:
 
 	# Check for Aiming Input
 	sneaking = Input.is_action_pressed("sneak")
-	gun.aiming = sneaking
 
 
 func _physics_process(delta: float) -> void:
@@ -35,8 +34,13 @@ func _physics_process(delta: float) -> void:
 	var acc: float = (acceleration if input_vector else drag) * delta
 	var target_speed: float = move_speed
 
+	# Update Sneaking/Aiming
 	if sneaking:
 		target_speed *= sneaking_speed_multiplier
+		gun.aiming_weight += delta / gun.aim_in_time
+	else:
+		gun.aiming_weight -= delta / gun.aim_out_time
+	gun.aiming_weight = clamp(gun.aiming_weight, 0, 1)
 
 	# Apply Acceleration
 	velocity = velocity.move_toward(input_vector * target_speed, acc)
