@@ -69,4 +69,5 @@ func _physics_process(delta: float) -> void:
 
 
 func update_mag_size() -> void:
+	mag_size.visible = gun.mag_size > 0
 	mag_size.text = "%d / %d" % [gun.rounds, gun.mag_size]

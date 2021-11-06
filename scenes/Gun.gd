@@ -72,7 +72,8 @@ func _process(delta: float) -> void:
 			var random_rot: float = rand_range(-spread / 2, spread / 2)
 			bullet.global_rotation_degrees += random_rot
 
-			rounds -= 1
+			if mag_size > 0:
+				rounds -= 1
 			_cooldown = 1 / rounds_per_second
 			emit_signal("fired")
 		else:
