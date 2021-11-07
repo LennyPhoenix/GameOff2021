@@ -11,7 +11,8 @@ var velocity := Vector2.ZERO
 
 onready var rotate_group: Node2D = $Rotate
 onready var gun: Gun = $Rotate/Gun
-onready var mag_size: Label = $MagSize
+onready var fov_light: Light2D = $Lights/Vision/FOV
+onready var mag_size: Label = $UI/MagSize
 
 
 func _ready() -> void:
@@ -44,6 +45,9 @@ func _process(_delta: float) -> void:
 	# Check for Reload
 	if Input.is_action_just_pressed("reload"):
 		gun.reload()
+
+	# Lighting
+	fov_light.texture_scale = lerp(1, 0.15, gun.reloading_fade)
 
 
 func _physics_process(delta: float) -> void:
