@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://icon.png" type="Texture" id=1]
 [ext_resource path="res://scenes/Bullet.gd" type="Script" id=2]
+[ext_resource path="res://lights/smooth.png" type="Texture" id=3]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 2.0
@@ -21,5 +22,14 @@ shape = SubResource( 1 )
 [node name="RayCast2D" type="RayCast2D" parent="."]
 enabled = true
 cast_to = Vector2( 0, 0 )
+
+[node name="Light2D" type="Light2D" parent="."]
+texture = ExtResource( 3 )
+texture_scale = 0.05
+energy = 0.8
+range_item_cull_mask = 3
+shadow_enabled = true
+shadow_filter = 2
+shadow_item_cull_mask = 3
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

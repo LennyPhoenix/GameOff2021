@@ -16,13 +16,13 @@ export var reload_time := 1.2
 export var hip_spread := 40.0
 export var aiming_spread := 8.0
 # Guides
-export var hip_guide_colour := Color(1.0, 1.0, 1.0, 0.1)
-export var aiming_guide_colour := Color(1.0, 1.0, 1.0, 0.4)
+export var hip_guide_colour := Color(1.0, 1.0, 1.0, 0.07)
+export var aiming_guide_colour := Color(1.0, 1.0, 1.0, 0.25)
 # Magazine
 export var reload_per_round := false
 export var mag_size := 24
 export var reload_speed_modifier := 0.3
-export var reload_fade_time := 0.05
+export var reload_fade_time := 0.1
 
 onready var muzzle: Position2D = $Muzzle
 onready var top_guide: Node2D = $Muzzle/TopGuide

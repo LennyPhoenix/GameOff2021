@@ -11,13 +11,16 @@ script = ExtResource( 2 )
 position = Vector2( 8, 0 )
 
 [node name="TopGuide" parent="Muzzle" instance=ExtResource( 3 )]
+light_mask = 3
 length = 500.0
-colour = Color( 1, 1, 1, 0.0941176 )
+dash_length = 12.0
 
 [node name="BottomGuide" parent="Muzzle" instance=ExtResource( 3 )]
+light_mask = 3
 length = 500.0
-colour = Color( 1, 1, 1, 0.0941176 )
+dash_length = 12.0
 
 [node name="Sprite" type="Sprite" parent="."]
+light_mask = 3
 scale = Vector2( 0.25, 0.25 )
 texture = ExtResource( 1 )

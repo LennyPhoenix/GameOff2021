@@ -1,8 +1,15 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://scenes/Player.gd" type="Script" id=1]
 [ext_resource path="res://icon.png" type="Texture" id=2]
 [ext_resource path="res://scenes/Gun.tscn" type="PackedScene" id=3]
+[ext_resource path="res://lights/falloff.png" type="Texture" id=4]
+[ext_resource path="res://lights/smooth.png" type="Texture" id=5]
+[ext_resource path="res://materials/unshaded.material" type="Material" id=6]
+[ext_resource path="res://lights/blank.png" type="Texture" id=7]
+
+[sub_resource type="OccluderPolygon2D" id=2]
+polygon = PoolVector2Array( -15, -4, -16, -10, -16, 11, -15, 4 )
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 16.0
@@ -12,11 +19,13 @@ collision_layer = 2
 script = ExtResource( 1 )
 
 [node name="MagSize" type="Label" parent="."]
+material = ExtResource( 6 )
 margin_top = -32.0
 margin_bottom = -18.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
+text = "XX / XX"
 align = 2
 __meta__ = {
 "_edit_use_anchors_": false
@@ -25,14 +34,56 @@ __meta__ = {
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
 
+[node name="Lights" type="Node2D" parent="."]
+
+[node name="Light" type="Node2D" parent="Lights"]
+
+[node name="Peripheral" type="Light2D" parent="Lights/Light"]
+texture = ExtResource( 5 )
+texture_scale = 0.3
+energy = 0.6
+shadow_enabled = true
+shadow_filter = 2
+shadow_item_cull_mask = 9
+
+[node name="Occluders" type="Light2D" parent="Lights/Light"]
+texture = ExtResource( 5 )
+texture_scale = 0.3
+energy = 0.6
+range_item_cull_mask = 4
+
+[node name="Vision" type="Node2D" parent="Lights"]
+
+[node name="FOV" type="Light2D" parent="Lights/Vision"]
+texture = ExtResource( 4 )
+mode = 2
+range_item_cull_mask = 2
+shadow_enabled = true
+shadow_filter = 5
+shadow_filter_smooth = 20.0
+shadow_item_cull_mask = 10
+
+[node name="Mask" type="Light2D" parent="Lights/Vision"]
+texture = ExtResource( 7 )
+texture_scale = 20.0
+mode = 3
+range_item_cull_mask = 2
+shadow_item_cull_mask = 2
+
 [node name="Rotate" type="Node2D" parent="."]
 
 [node name="Sprite" type="Sprite" parent="Rotate"]
+light_mask = 3
 scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 2 )
 
 [node name="Gun" parent="Rotate" instance=ExtResource( 3 )]
 position = Vector2( 12, 10 )
+
+[node name="FOVMask" type="LightOccluder2D" parent="Rotate"]
+light_mask = 8
+occluder = SubResource( 2 )
+light_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
