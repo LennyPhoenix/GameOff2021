@@ -43,13 +43,19 @@ func _process(_delta: float) -> void:
 	elif input_vector == Vector2.ZERO:
 		state = State.IDLE
 	elif Input.is_action_pressed("sprint"):
-		state = State.SPRINTING
+		if gun.get_current_state() == Gun.State.STOWED:
+			state = State.SPRINTING
+		else:
+			gun.target_state = Gun.State.STOWED
 	else:
 		state = State.WALKING
 
-	if state == State.SNEAKING and gun.get_current_state() == Gun.State.READY:
-		gun.target_state = Gun.State.AIMING
-	elif state != State.SNEAKING and gun.get_current_state() == Gun.State.AIMING:
+	if state == State.SNEAKING:
+		if gun.target_state == Gun.State.READY:
+			gun.target_state = Gun.State.AIMING
+		elif gun.target_state == Gun.State.STOWED:
+			gun.target_state = Gun.State.READY
+	elif gun.target_state == Gun.State.AIMING:
 		gun.target_state = Gun.State.READY
 
 	# Lighting
@@ -63,11 +69,19 @@ func _physics_process(delta: float) -> void:
 
 	# Reloading
 	if gun.get_current_state() == Gun.State.RELOADING:
-		target_speed *= gun.reload_speed_modifier
+		target_speed *= gun.reloading_speed_modifier
 
-	# Update Sneaking/Aiming
+	# Adjusting
+	elif gun.get_current_state() == Gun.State.ADJUSTING:
+		target_speed *= gun.adjusting_speed_modifier
+
+	# Sneaking
 	elif state == State.SNEAKING:
 		target_speed *= sneaking_speed_multiplier
+
+	# Sprinting
+	elif state == State.SPRINTING:
+		target_speed *= sprinting_speed_multiplier
 
 	# Apply Acceleration
 	velocity = velocity.move_toward(input_vector * target_speed, acc)

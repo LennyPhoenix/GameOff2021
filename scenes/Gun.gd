@@ -23,6 +23,7 @@ export var aim_out_time := 0.1
 export var reload_time := 1.2
 export var stow_time := 0.2
 export var unstown_time := 0.3
+export var reload_fade_time := 0.1
 # Spread
 export var hip_spread := 40.0
 export var aiming_spread := 8.0
@@ -32,8 +33,9 @@ export var aiming_guide_colour := Color(1.0, 1.0, 1.0, 0.25)
 # Magazine
 export var reload_per_round := false
 export var mag_size := 24
-export var reload_speed_modifier := 0.3
-export var reload_fade_time := 0.1
+# Speed Adjustment
+export var reloading_speed_modifier := 0.5
+export var adjusting_speed_modifier := 0.3
 
 onready var muzzle: Position2D = $Muzzle
 onready var top_guide: Node2D = $Muzzle/TopGuide
@@ -92,6 +94,8 @@ func _process(delta: float) -> void:
 		else:
 			reload()
 
+	modulate = lerp(Color(1, 1, 1, 1), Color(1, 1, 1, 0), stowed_weight)
+
 
 func _update_states(delta: float) -> void:
 	if target_state == State.RELOADING:
@@ -99,12 +103,18 @@ func _update_states(delta: float) -> void:
 	else:
 		reloading_weight -= delta / reload_fade_time
 
-		if target_state == State.AIMING:
+		if target_state == State.AIMING and stowed_weight == 0:
 			aiming_weight += delta / aim_in_time
 		else:
 			aiming_weight -= delta / aim_out_time
+		aiming_weight = clamp(aiming_weight, 0, 1)
 
-	aiming_weight = clamp(aiming_weight, 0, 1)
+		if target_state == State.STOWED and aiming_weight == 0:
+			stowed_weight += delta / stow_time
+		else:
+			stowed_weight -= delta / stow_time
+		stowed_weight = clamp(stowed_weight, 0, 1)
+
 	reloading_weight = clamp(reloading_weight, 0, 1)
 
 
