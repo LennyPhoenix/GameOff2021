@@ -1,15 +1,14 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://scenes/Player.gd" type="Script" id=1]
 [ext_resource path="res://icon.png" type="Texture" id=2]
 [ext_resource path="res://scenes/Gun.tscn" type="PackedScene" id=3]
 [ext_resource path="res://lights/falloff.png" type="Texture" id=4]
 [ext_resource path="res://lights/smooth.png" type="Texture" id=5]
-[ext_resource path="res://materials/unshaded.material" type="Material" id=6]
 [ext_resource path="res://lights/blank.png" type="Texture" id=7]
 
 [sub_resource type="OccluderPolygon2D" id=2]
-polygon = PoolVector2Array( -21, -4, -23, -11, -23, 11, -21, 4 )
+polygon = PoolVector2Array( -3, -16, -3, 15, 3, 0 )
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 16.0
@@ -17,27 +16,6 @@ radius = 16.0
 [node name="Player" type="KinematicBody2D"]
 collision_layer = 2
 script = ExtResource( 1 )
-
-[node name="UI" type="CanvasLayer" parent="."]
-
-[node name="MagSize" type="Label" parent="UI"]
-material = ExtResource( 6 )
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = 192.0
-margin_top = 118.0
-margin_right = 237.0
-margin_bottom = 132.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 4
-text = "XX / XX"
-align = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
@@ -69,7 +47,7 @@ mode = 2
 range_item_cull_mask = 2
 shadow_enabled = true
 shadow_filter = 2
-shadow_filter_smooth = 10.0
+shadow_filter_smooth = 20.0
 shadow_item_cull_mask = 10
 
 [node name="Mask" type="Light2D" parent="Lights/Vision"]
@@ -92,11 +70,9 @@ position = Vector2( 12, 10 )
 
 [node name="FOVMask" type="LightOccluder2D" parent="Rotate"]
 light_mask = 8
+position = Vector2( -23, 0 )
 occluder = SubResource( 2 )
 light_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
-
-[connection signal="fired" from="Rotate/Gun" to="." method="_on_Gun_fired"]
-[connection signal="reloaded" from="Rotate/Gun" to="." method="_on_Gun_reloaded"]
