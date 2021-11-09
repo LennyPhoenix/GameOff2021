@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://icon.png" type="Texture" id=1]
+[ext_resource path="res://scenes/SoundEmitter.gd" type="Script" id=2]
+[ext_resource path="res://materials/unshaded.material" type="Material" id=3]
+
+[sub_resource type="Gradient" id=1]
+colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
+
+[node name="SoundEmitter" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="Particles" type="CPUParticles2D" parent="."]
+material = ExtResource( 3 )
+emitting = false
+amount = 1
+lifetime = 1.2
+one_shot = true
+texture = ExtResource( 1 )
+emission_shape = 1
+emission_sphere_radius = 4.0
+direction = Vector2( 0, -1 )
+spread = 30.0
+gravity = Vector2( 0, -5 )
+initial_velocity = 10.0
+initial_velocity_random = 0.1
+scale_amount = 0.2
+scale_amount_random = 0.1
+color_ramp = SubResource( 1 )
