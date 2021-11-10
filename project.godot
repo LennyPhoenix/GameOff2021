@@ -38,6 +38,7 @@ FullscreenManager="*res://autoload/FullscreenManager.gd"
 
 window/size/width=480
 window/size/height=270
+window/size/always_on_top=true
 window/size/test_width=1280
 window/size/test_height=720
 window/stretch/mode="viewport"
@@ -120,6 +121,7 @@ sprint={
 2d_render/layer_2="Line of Sight"
 2d_render/layer_3="Occluders"
 2d_render/layer_4="Player FoV Light"
+2d_render/layer_5="Sound Detector Overlay"
 2d_physics/layer_1="Environment"
 2d_physics/layer_2="Entities"
 2d_physics/layer_3="Projectiles"

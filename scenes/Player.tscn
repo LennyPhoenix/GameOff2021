@@ -57,8 +57,17 @@ shadow_item_cull_mask = 10
 texture = ExtResource( 7 )
 texture_scale = 20.0
 mode = 3
-range_item_cull_mask = 2
-shadow_item_cull_mask = 2
+range_item_cull_mask = 18
+
+[node name="NoiseMask" type="Light2D" parent="Lights/Vision"]
+texture = ExtResource( 5 )
+texture_scale = 0.6
+mode = 1
+range_item_cull_mask = 16
+shadow_enabled = true
+shadow_filter = 2
+shadow_filter_smooth = 20.0
+shadow_item_cull_mask = 24
 
 [node name="Rotate" type="Node2D" parent="."]
 
