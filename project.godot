@@ -119,9 +119,8 @@ sprint={
 
 2d_render/layer_1="Default"
 2d_render/layer_2="Line of Sight"
-2d_render/layer_3="Occluders"
-2d_render/layer_4="Player FoV Light"
-2d_render/layer_5="Sound Detector Overlay"
+2d_render/layer_3="Walls"
+2d_render/layer_4="Noise"
 2d_physics/layer_1="Environment"
 2d_physics/layer_2="Entities"
 2d_physics/layer_3="Projectiles"

@@ -27,9 +27,8 @@ cast_to = Vector2( 0, 0 )
 texture = ExtResource( 3 )
 texture_scale = 0.05
 energy = 0.8
-range_item_cull_mask = 3
 shadow_enabled = true
 shadow_filter = 2
-shadow_item_cull_mask = 3
+shadow_filter_smooth = 20.0
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
